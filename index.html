@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Environmental Impact Assessment &amp; Green Infrastructure — Group 12</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+:root{
+  --forest:#07130f;--moss:#18382a;--leaf:#65d89a;--mist:#dff8ed;--gold:#d8c982;
+  --aurora1:rgba(50,200,120,.18);--aurora2:rgba(30,120,180,.14);--aurora3:rgba(180,255,150,.1);
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#020806;font-family:'Inter',Segoe UI,Arial,sans-serif}
+body{color:white}
+
+/* ─── STAGE ─── */
+.stage{
+  position:relative;width:100vw;height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 110%,rgba(47,112,77,.55),transparent 50%),
+    linear-gradient(180deg,#04100a 0%,#0b2118 52%,#030a07 100%);
+  gap:6px;
+}
+
+/* ─── AURORA ─── */
+.aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.aurora-band{
+  position:absolute;left:-20%;right:-20%;
+  border-radius:50%;filter:blur(60px);
+  mix-blend-mode:screen;
+}
+.aurora-band:nth-child(1){
+  top:-25vh;height:60vh;
+  background:radial-gradient(ellipse at 50% 50%,rgba(40,200,110,.22),transparent 70%);
+  animation:auroraDrift1 18s ease-in-out infinite alternate;
+}
+.aurora-band:nth-child(2){
+  top:-15vh;height:50vh;
+  background:radial-gradient(ellipse at 40% 50%,rgba(20,140,220,.18),transparent 70%);
+  animation:auroraDrift2 22s ease-in-out infinite alternate;
+}
+.aurora-band:nth-child(3){
+  top:-10vh;height:40vh;
+  background:radial-gradient(ellipse at 60% 50%,rgba(150,255,130,.12),transparent 70%);
+  animation:auroraDrift3 14s ease-in-out infinite alternate;
+}
+@keyframes auroraDrift1{0%{transform:translateX(-8vw) scaleY(.9) rotate(-2deg);opacity:.5}100%{transform:translateX(8vw) scaleY(1.1) rotate(2deg);opacity:1}}
+@keyframes auroraDrift2{0%{transform:translateX(10vw) scaleY(1.2) rotate(1deg);opacity:.7}100%{transform:translateX(-10vw) scaleY(.8) rotate(-3deg);opacity:.4}}
+@keyframes auroraDrift3{0%{transform:translateX(-5vw) scaleY(1) rotate(0deg);opacity:.3}100%{transform:translateX(5vw) scaleY(1.3) rotate(1.5deg);opacity:.8}}
+
+/* ─── STARS ─── */
+.stars{position:absolute;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s)}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(.8)}50%{opacity:.9;transform:scale(1.2)}}
+
+/* ─── FOREST ENVIRONMENT ─── */
+.forest{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+
+/* Animated canopy with parallax */
+.canopy{
+  position:absolute;left:-8vw;right:-8vw;top:-7vh;height:30vh;filter:blur(.2px);
+  background:
+    radial-gradient(ellipse at 8% 65%,#153e2a 0 16%,transparent 17%),
+    radial-gradient(ellipse at 18% 38%,#1c4d31 0 19%,transparent 20%),
+    radial-gradient(ellipse at 32% 70%,#123a27 0 20%,transparent 21%),
+    radial-gradient(ellipse at 47% 35%,#20543a 0 18%,transparent 19%),
+    radial-gradient(ellipse at 61% 68%,#123a27 0 21%,transparent 22%),
+    radial-gradient(ellipse at 77% 36%,#1d4a31 0 19%,transparent 20%),
+    radial-gradient(ellipse at 91% 65%,#123a27 0 20%,transparent 21%);
+  animation:sway 9s ease-in-out infinite alternate;
+  transition:transform .3s ease-out;
+}
+.tree-line{
+  position:absolute;bottom:-4vh;left:-2vw;right:-2vw;height:25vh;opacity:.95;
+  background:
+    linear-gradient(75deg,transparent 0 8%,#07150e 8% 10%,transparent 10% 17%,#0a1b12 17% 19%,transparent 19% 28%,#06130d 28% 30%,transparent 30% 40%,#0a1b12 40% 42%,transparent 42% 52%,#06130d 52% 54%,transparent 54% 66%,#0a1b12 66% 68%,transparent 68% 78%,#06130d 78% 80%,transparent 80% 89%,#0a1b12 89% 91%,transparent 91%);
+  clip-path:polygon(0 100%,0 54%,3% 50%,5% 60%,8% 43%,10% 58%,13% 34%,16% 59%,19% 42%,22% 62%,25% 31%,28% 57%,31% 40%,34% 62%,37% 35%,40% 58%,43% 44%,46% 60%,49% 32%,52% 58%,55% 41%,58% 63%,61% 37%,64% 58%,67% 29%,70% 57%,73% 42%,76% 61%,79% 35%,82% 59%,85% 39%,88% 61%,91% 33%,94% 57%,97% 45%,100% 55%,100% 100%);
+  animation:sway 12s ease-in-out infinite alternate-reverse;
+  transition:transform .4s ease-out;
+}
+.haze{
+  position:absolute;left:-10%;right:-10%;bottom:8%;height:26%;
+  background:radial-gradient(ellipse at 50% 60%,rgba(204,245,225,.18),transparent 64%);
+  filter:blur(18px);
+  animation:mist 11s ease-in-out infinite alternate;
+}
+
+/* ground mist — extra dreamy layer */
+.ground-mist{
+  position:absolute;bottom:0;left:-5%;right:-5%;height:18%;
+  background:linear-gradient(to top,rgba(150,255,200,.07),transparent);
+  filter:blur(14px);
+  animation:groundMist 8s ease-in-out infinite alternate;
+}
+@keyframes groundMist{from{opacity:.4;transform:scaleX(.95)}to{opacity:.9;transform:scaleX(1.05)}}
+
+/* ─── FIREFLIES ─── */
+.fireflies{position:absolute;inset:0}
+.firefly{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:#dfffc0;
+  box-shadow:0 0 14px 5px rgba(184,255,146,.6);
+  animation:float var(--fd,5s) ease-in-out infinite var(--fd2,0s),glow var(--gd,2.2s) ease-in-out infinite alternate var(--gd2,0s);
+}
+.firefly.teal{background:#b0ffea;box-shadow:0 0 14px 5px rgba(100,255,220,.5)}
+.firefly.gold{background:#fff5b0;box-shadow:0 0 14px 5px rgba(255,220,80,.5)}
+@keyframes float{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(-18px,-14px)}
+  50%{transform:translate(20px,-28px)}
+  75%{transform:translate(-10px,-8px)}
+  100%{transform:translate(0,0)}
+}
+@keyframes glow{from{opacity:.15;transform:scale(.7)}to{opacity:1;transform:scale(1.3)}}
+
+/* ─── FALLING LEAVES ─── */
+.leaf{
+  position:absolute;top:-8vh;
+  background:linear-gradient(135deg,#79d99c,#2c7e50);
+  border-radius:100% 0 100% 0;
+  opacity:.85;filter:drop-shadow(0 2px 3px #0009);
+  animation:fall linear infinite;
+}
+.leaf.wide{width:22px;height:13px}
+.leaf.narrow{width:12px;height:7px;background:linear-gradient(135deg,#a8efc4,#1d6040)}
+.l1{left:8%;animation-duration:12s;animation-delay:-4s;width:18px;height:10px}
+.l2{left:23%;animation-duration:15s;animation-delay:-8s;width:20px;height:11px}
+.l3{left:39%;animation-duration:11s;animation-delay:-2s;width:16px;height:9px}
+.l4{left:58%;animation-duration:17s;animation-delay:-10s;width:18px;height:10px}
+.l5{left:76%;animation-duration:13s;animation-delay:-5s;width:14px;height:8px}
+.l6{left:91%;animation-duration:16s;animation-delay:-12s;width:22px;height:12px}
+.l7{left:33%;animation-duration:18s;animation-delay:-7s;width:12px;height:7px}
+.l8{left:67%;animation-duration:14s;animation-delay:-3s;width:16px;height:9px}
+@keyframes fall{
+  0%{transform:translate3d(0,-10vh,0) rotate(0) scale(1)}
+  20%{transform:translate3d(6vw,20vh,0) rotate(80deg) scale(.95)}
+  40%{transform:translate3d(-4vw,40vh,0) rotate(170deg) scale(.9)}
+  60%{transform:translate3d(7vw,60vh,0) rotate(260deg) scale(.85)}
+  80%{transform:translate3d(-3vw,82vh,0) rotate(340deg) scale(.8)}
+  100%{transform:translate3d(-2vw,115vh,0) rotate(430deg) scale(.75)}
+}
+
+/* ─── FLOATING POLLEN / SPORES ─── */
+.pollen{position:absolute;inset:0;pointer-events:none;z-index:3}
+.spore{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,200,.9),rgba(200,255,180,.3));
+  filter:blur(.5px);
+  animation:sporeRise linear infinite;
+}
+@keyframes sporeRise{
+  0%{transform:translateY(0) translateX(0) scale(1);opacity:0}
+  10%{opacity:.8}
+  50%{transform:translateY(-40vh) translateX(var(--sx,15px)) scale(.7)}
+  90%{opacity:.2}
+  100%{transform:translateY(-90vh) translateX(var(--sx2,-10px)) scale(.3);opacity:0}
+}
+
+/* ─── SVG BIRDS ─── */
+.birds-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:4}
+.bird-svg{position:absolute;opacity:.7;animation:birdFly linear infinite}
+@keyframes birdFly{
+  0%{transform:translateX(-80px) translateY(0) scaleX(1)}
+  45%{transform:translateX(55vw) translateY(var(--by,-3vh)) scaleX(1)}
+  50%{transform:translateX(60vw) translateY(var(--by,-3vh)) scaleX(-1)}
+  95%{transform:translateX(-50px) translateY(0) scaleX(-1)}
+  100%{transform:translateX(-80px) translateY(0) scaleX(1)}
+}
+
+/* ─── RAIN STREAKS (light drizzle) ─── */
+.rain{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2;opacity:.35}
+.drop{
+  position:absolute;top:-10px;
+  width:1px;background:linear-gradient(to bottom,transparent,rgba(180,255,220,.6));
+  animation:rainFall linear infinite;
+}
+@keyframes rainFall{
+  0%{transform:translateY(-10px) translateX(0)}
+  100%{transform:translateY(110vh) translateX(15px)}
+}
+
+/* ─── PRESENTATION SURFACE ─── */
+/* 
+  Layout: top-bar (34px) + gap(6px) + deck + gap(4px) + progress(4px) + gap(6px) + controls(54px)
+  = 108px reserved. Deck fills the rest.
+*/
+:root{--ui-reserved:108px}
+.deck-wrapper{
+  position:relative;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.deck{
+  position:relative;
+  /*
+    Constrain by BOTH available width and available height.
+    Available height = 100vh - reserved space
+    Aspect is 16:9 so width = height * 16/9
+  */
+  width:min(
+    92vw,
+    calc((100vh - var(--ui-reserved)) * 16 / 9)
+  );
+  aspect-ratio:16/9;
+  border-radius:10px;overflow:hidden;
+  flex-shrink:0;
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.7),
+    0 0 0 1px rgba(210,255,230,.2),
+    0 0 50px rgba(101,216,154,.08),
+    0 0 100px rgba(101,216,154,.04);
+  background:#000;
+  animation:deckBreath 6s ease-in-out infinite alternate;
+}
+@keyframes deckBreath{
+  from{box-shadow:0 22px 70px rgba(0,0,0,.7),0 0 0 1px rgba(210,255,230,.18),0 0 40px rgba(101,216,154,.06),0 0 80px rgba(101,216,154,.03)}
+  to{box-shadow:0 28px 90px rgba(0,0,0,.75),0 0 0 1px rgba(210,255,230,.28),0 0 70px rgba(101,216,154,.16),0 0 140px rgba(101,216,154,.08)}
+}
+
+/* ─── SLIDES ─── */
+.slide{position:absolute;inset:0;display:none;background:#000}
+.slide.active{display:block;animation:slideIn .5s cubic-bezier(.25,.8,.25,1) forwards}
+.slide.leaving{animation:slideOut .35s ease-in forwards}
+.slide img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+
+@keyframes slideIn{
+  from{opacity:0;transform:scale(.97) translateY(6px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+@keyframes slideOut{
+  from{opacity:1;transform:scale(1)}
+  to{opacity:0;transform:scale(1.02)}
+}
+
+/* ─── VIGNETTE ─── */
+.vignette{position:absolute;inset:0;pointer-events:none;z-index:3;box-shadow:inset 0 0 80px rgba(0,0,0,.35)}
+
+/* ─── PROGRESS BAR ─── */
+.progress{
+  width:min(92vw, calc((100vh - var(--ui-reserved)) * 16 / 9));
+  height:4px;
+  background:rgba(255,255,255,.1);
+  border-radius:0 0 8px 8px;
+  overflow:visible;
+  flex-shrink:0;
+}
+.progress i{
+  display:block;height:100%;width:2.5%;
+  background:linear-gradient(90deg,#55d38c,#a8e86a,#d4d98c);
+  box-shadow:0 0 14px 2px rgba(100,220,150,.7);
+  transition:width .4s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.progress i::after{
+  content:'';position:absolute;right:0;top:-2px;bottom:-2px;width:6px;
+  background:rgba(180,255,200,.9);border-radius:50%;
+  box-shadow:0 0 10px 4px rgba(100,255,160,.6);
+  animation:progressPulse 1s ease-in-out infinite alternate;
+}
+@keyframes progressPulse{from{opacity:.5;transform:scaleY(.8)}to{opacity:1;transform:scaleY(1.2)}}
+
+/* ─── CONTROLS ─── */
+.controls{
+  position:relative;
+  z-index:30;display:flex;align-items:center;gap:8px;
+  padding:8px 10px;
+  border:1px solid rgba(221,255,237,.2);border-radius:999px;
+  background:rgba(3,15,10,.78);backdrop-filter:blur(16px);
+  box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 0 1px rgba(100,220,150,.07);
+  transition:.3s;
+  margin-top:4px;
+  flex-shrink:0;
+}
+.controls button{
+  width:38px;height:38px;border:0;border-radius:50%;
+  background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:17px;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.controls button:hover{
+  background:rgba(101,216,154,.22);
+  transform:scale(1.08);
+  box-shadow:0 0 16px rgba(101,216,154,.3);
+}
+.controls button:active{transform:scale(.94)}
+/* Ripple on button click */
+.controls button .ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(150,255,180,.4);
+  transform:scale(0);
+  animation:rippleAnim .5s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes rippleAnim{to{transform:scale(3);opacity:0}}
+
+.counter{
+  min-width:76px;text-align:center;font-size:13px;
+  color:#dceee5;font-variant-numeric:tabular-nums;
+  letter-spacing:.03em;
+}
+
+/* ─── TOP BAR (badge + hint) ─── */
+.top-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  width:min(92vw, calc((100vh - var(--ui-reserved)) * 16 / 9));
+  z-index:25;
+  flex-shrink:0;
+  margin-bottom:4px;
+}
+
+/* ─── HINT ─── */
+.hint{
+  padding:6px 12px;border-radius:999px;
+  background:rgba(2,13,9,.6);border:1px solid rgba(220,255,235,.14);
+  font-size:11px;color:#c0e0cc;backdrop-filter:blur(10px);
+  letter-spacing:.02em;
+  transition:opacity .3s;
+}
+
+/* ─── SLIDE NUMBER BADGE ─── */
+.slide-badge{
+  padding:6px 12px;border-radius:999px;
+  background:rgba(2,13,9,.55);border:1px solid rgba(101,216,154,.2);
+  font-size:11px;color:#88e0b4;letter-spacing:.06em;
+  font-weight:600;backdrop-filter:blur(10px);
+  transition:all .3s;
+}
+
+/* ─── FULLSCREEN FADE ─── */
+.fullscreen .controls,.fullscreen .hint,.fullscreen .slide-badge,.fullscreen .top-bar{opacity:0;pointer-events:none;transition:opacity .3s}
+.fullscreen:hover .controls,.fullscreen:hover .hint,.fullscreen:hover .slide-badge,.fullscreen:hover .top-bar{opacity:1;pointer-events:auto}
+
+/* ─── CURSOR TRAIL (canvas) ─── */
+#trail-canvas{
+  position:fixed;inset:0;pointer-events:none;z-index:50;
+  width:100%;height:100%;
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:700px){
+  .deck{width:100vw;border-radius:0}
+  .top-bar{width:100vw;padding:0 8px;font-size:10px}
+  .hint{font-size:10px;padding:4px 8px}
+  .canopy{height:20vh}
+  .tree-line{height:17vh}
+}
+
+/* ─── KEYFRAMES (shared) ─── */
+@keyframes sway{from{transform:translateX(-1.5vw) rotate(-.4deg)}to{transform:translateX(1.5vw) rotate(.4deg)}}
+@keyframes mist{from{transform:translateX(-7vw);opacity:.3}to{transform:translateX(7vw);opacity:.7}}
+</style>
+</head>
+<body>
+<canvas id="trail-canvas"></canvas>
+<div class="stage" id="stage">
+
+  <!-- Aurora / Northern Lights -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-band"></div>
+    <div class="aurora-band"></div>
+    <div class="aurora-band"></div>
+  </div>
+
+  <!-- Stars -->
+  <div class="stars" id="stars" aria-hidden="true"></div>
+
+  <!-- Forest environment -->
+  <div class="forest" aria-hidden="true">
+    <div class="canopy" id="canopy"></div>
+    <div class="tree-line" id="treeline"></div>
+    <div class="haze"></div>
+    <div class="ground-mist"></div>
+
+    <!-- Fireflies -->
+    <div class="fireflies" id="fireflies"></div>
+
+    <!-- Falling leaves -->
+    <i class="leaf l1"></i><i class="leaf l2"></i><i class="leaf l3"></i>
+    <i class="leaf l4"></i><i class="leaf l5"></i><i class="leaf l6"></i>
+    <i class="leaf l7 narrow"></i><i class="leaf l8 narrow"></i>
+  </div>
+
+  <!-- Floating pollen -->
+  <div class="pollen" id="pollen" aria-hidden="true"></div>
+
+  <!-- Birds -->
+  <div class="birds-layer" id="birds" aria-hidden="true"></div>
+
+  <!-- Light rain -->
+  <div class="rain" id="rain" aria-hidden="true"></div>
+
+  <!-- Top bar: badge + hint -->
+  <div class="top-bar">
+    <div class="slide-badge" id="badge">SLIDE 1</div>
+    <div class="hint">← → navigate · F fullscreen · Space play/pause</div>
+  </div>
+
+  <!-- Slide deck wrapper -->
+  <div class="deck-wrapper">
+    <div class="deck" id="deck" aria-label="Presentation">
+      <div class="slide" data-index="1"><img src="slides/slide-01.png" alt="Presentation slide 1"></div>
+      <div class="slide" data-index="2"><img src="slides/slide-02.png" alt="Presentation slide 2"></div>
+      <div class="slide" data-index="3"><img src="slides/slide-03.png" alt="Presentation slide 3"></div>
+      <div class="slide" data-index="4"><img src="slides/slide-04.png" alt="Presentation slide 4"></div>
+      <div class="slide" data-index="5"><img src="slides/slide-05.png" alt="Presentation slide 5"></div>
+      <div class="slide" data-index="6"><img src="slides/slide-06.png" alt="Presentation slide 6"></div>
+      <div class="slide" data-index="7"><img src="slides/slide-07.png" alt="Presentation slide 7"></div>
+      <div class="slide" data-index="8"><img src="slides/slide-08.png" alt="Presentation slide 8"></div>
+      <div class="slide" data-index="9"><img src="slides/slide-09.png" alt="Presentation slide 9"></div>
+      <div class="slide" data-index="10"><img src="slides/slide-10.png" alt="Presentation slide 10"></div>
+      <div class="slide" data-index="11"><img src="slides/slide-11.png" alt="Presentation slide 11"></div>
+      <div class="slide" data-index="12"><img src="slides/slide-12.png" alt="Presentation slide 12"></div>
+      <div class="slide" data-index="13"><img src="slides/slide-13.png" alt="Presentation slide 13"></div>
+      <div class="slide" data-index="14"><img src="slides/slide-14.png" alt="Presentation slide 14"></div>
+      <div class="slide" data-index="15"><img src="slides/slide-15.png" alt="Presentation slide 15"></div>
+      <div class="slide" data-index="16"><img src="slides/slide-16.png" alt="Presentation slide 16"></div>
+      <div class="slide" data-index="17"><img src="slides/slide-17.png" alt="Presentation slide 17"></div>
+      <div class="slide" data-index="18"><img src="slides/slide-18.png" alt="Presentation slide 18"></div>
+      <div class="slide" data-index="19"><img src="slides/slide-19.png" alt="Presentation slide 19"></div>
+      <div class="slide" data-index="20"><img src="slides/slide-20.png" alt="Presentation slide 20"></div>
+      <div class="slide" data-index="21"><img src="slides/slide-21.png" alt="Presentation slide 21"></div>
+      <div class="slide" data-index="22"><img src="slides/slide-22.png" alt="Presentation slide 22"></div>
+      <div class="slide" data-index="23"><img src="slides/slide-23.png" alt="Presentation slide 23"></div>
+      <div class="slide" data-index="24"><img src="slides/slide-24.png" alt="Presentation slide 24"></div>
+      <div class="slide" data-index="25"><img src="slides/slide-25.png" alt="Presentation slide 25"></div>
+      <div class="slide" data-index="26"><img src="slides/slide-26.png" alt="Presentation slide 26"></div>
+      <div class="slide" data-index="27"><img src="slides/slide-27.png" alt="Presentation slide 27"></div>
+      <div class="slide" data-index="28"><img src="slides/slide-28.png" alt="Presentation slide 28"></div>
+      <div class="slide" data-index="29"><img src="slides/slide-29.png" alt="Presentation slide 29"></div>
+      <div class="slide" data-index="30"><img src="slides/slide-30.png" alt="Presentation slide 30"></div>
+      <div class="slide" data-index="31"><img src="slides/slide-31.png" alt="Presentation slide 31"></div>
+      <div class="slide" data-index="32"><img src="slides/slide-32.png" alt="Presentation slide 32"></div>
+      <div class="slide" data-index="33"><img src="slides/slide-33.png" alt="Presentation slide 33"></div>
+      <div class="slide" data-index="34"><img src="slides/slide-34.png" alt="Presentation slide 34"></div>
+      <div class="slide" data-index="35"><img src="slides/slide-35.png" alt="Presentation slide 35"></div>
+      <div class="slide" data-index="36"><img src="slides/slide-36.png" alt="Presentation slide 36"></div>
+      <div class="slide" data-index="37"><img src="slides/slide-37.png" alt="Presentation slide 37"></div>
+      <div class="slide" data-index="38"><img src="slides/slide-38.png" alt="Presentation slide 38"></div>
+      <div class="slide" data-index="39"><img src="slides/slide-39.png" alt="Presentation slide 39"></div>
+      <div class="slide" data-index="40"><img src="slides/slide-40.png" alt="Presentation slide 40"></div>
+      <div class="vignette"></div>
+    </div>
+    <!-- Progress bar lives outside deck, inside wrapper, so it appears directly below -->
+    <div class="progress"><i id="bar"></i></div>
+  </div>
+
+  <!-- Controls below the deck -->
+  <div class="controls">
+    <button id="prev" title="Previous slide">‹</button>
+    <div class="counter" id="counter">1 / 40</div>
+    <button id="next" title="Next slide">›</button>
+    <button id="play" title="Auto play">▶</button>
+    <button id="fs" title="Fullscreen">⛶</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════ SLIDE ENGINE ══════════════ */
+const slides = [...document.querySelectorAll('.slide')];
+const counter = document.getElementById('counter');
+const bar = document.getElementById('bar');
+const stage = document.getElementById('stage');
+const badge = document.getElementById('badge');
+let index = 0, timer = null;
+
+function show(n) {
+  const prev = slides[index];
+  index = (n + slides.length) % slides.length;
+  prev.classList.remove('active');
+  slides[index].classList.add('active');
+  counter.textContent = `${index+1} / ${slides.length}`;
+  badge.textContent = `SLIDE ${index+1}`;
+  bar.style.width = `${((index+1)/slides.length)*100}%`;
+  history.replaceState(null,'',`#slide-${index+1}`);
+}
+function next(){show(index+1)}
+function prev(){show(index-1)}
+function togglePlay(){
+  if(timer){clearInterval(timer);timer=null;document.getElementById('play').textContent='▶'}
+  else{timer=setInterval(next,7000);document.getElementById('play').textContent='Ⅱ'}
+}
+function fullscreen(){
+  if(!document.fullscreenElement) stage.requestFullscreen?.();
+  else document.exitFullscreen?.();
+}
+document.addEventListener('fullscreenchange',()=>{
+  stage.classList.toggle('fullscreen',!!document.fullscreenElement);
+});
+
+/* Button ripple */
+document.querySelectorAll('.controls button').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    const r=document.createElement('span');
+    const d=Math.max(this.offsetWidth,this.offsetHeight);
+    r.className='ripple';
+    r.style.cssText=`width:${d}px;height:${d}px;left:${e.offsetX-d/2}px;top:${e.offsetY-d/2}px`;
+    this.appendChild(r);
+    r.addEventListener('animationend',()=>r.remove());
+  });
+});
+
+document.getElementById('next').onclick=next;
+document.getElementById('prev').onclick=prev;
+document.getElementById('play').onclick=togglePlay;
+document.getElementById('fs').onclick=fullscreen;
+
+document.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown'].includes(e.key)){e.preventDefault();next()}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+  else if(e.key===' '){e.preventDefault();togglePlay()}
+  else if(e.key.toLowerCase()==='f'){fullscreen()}
+  else if(e.key==='Home'){show(0)}
+  else if(e.key==='End'){show(slides.length-1)}
+});
+
+/* Touch swipe */
+let touchX=0;
+stage.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX},{passive:true});
+stage.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(dx)>40){dx<0?next():prev()}
+},{passive:true});
+
+let start=location.hash.match(/slide-(\d+)/);
+show(start?Math.max(0,Math.min(slides.length-1,+start[1]-1)):0);
+
+
+/* ══════════════ STARS ══════════════ */
+(function spawnStars(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()*2+1;
+    s.style.cssText=`
+      left:${Math.random()*100}%;top:${Math.random()*55}%;
+      width:${sz}px;height:${sz}px;opacity:${.1+Math.random()*.7};
+      --d:${2+Math.random()*4}s;--delay:-${Math.random()*5}s`;
+    c.appendChild(s);
+  }
+})();
+
+
+/* ══════════════ FIREFLIES ══════════════ */
+(function spawnFireflies(){
+  const c=document.getElementById('fireflies');
+  const classes=['','teal','gold'];
+  const positions=[
+    {l:'13%',t:'28%'},{l:'27%',t:'67%'},{l:'43%',t:'23%'},
+    {l:'68%',t:'31%'},{l:'83%',t:'61%'},{l:'94%',t:'36%'},
+    {l:'20%',t:'50%'},{l:'55%',t:'75%'},{l:'36%',t:'42%'},
+    {l:'75%',t:'18%'},{l:'10%',t:'80%'},{l:'87%',t:'48%'},
+    {l:'48%',t:'56%'},{l:'62%',t:'84%'},{l:'5%',t:'35%'},
+  ];
+  positions.forEach((p,i)=>{
+    const f=document.createElement('span');
+    f.className='firefly '+classes[i%3];
+    f.style.cssText=`left:${p.l};top:${p.t};
+      --fd:${4+Math.random()*4}s;--fd2:-${Math.random()*4}s;
+      --gd:${1.5+Math.random()*2}s;--gd2:-${Math.random()*2}s`;
+    c.appendChild(f);
+  });
+})();
+
+
+/* ══════════════ POLLEN / SPORES ══════════════ */
+(function spawnPollen(){
+  const c=document.getElementById('pollen');
+  for(let i=0;i<22;i++){
+    const p=document.createElement('div');
+    p.className='spore';
+    const sz=Math.random()*4+2;
+    const dur=8+Math.random()*12;
+    p.style.cssText=`
+      left:${Math.random()*100}%;bottom:${Math.random()*30}%;
+      width:${sz}px;height:${sz}px;opacity:0;
+      --sx:${(Math.random()-.5)*60}px;--sx2:${(Math.random()-.5)*40}px;
+      animation-duration:${dur}s;animation-delay:-${Math.random()*dur}s`;
+    c.appendChild(p);
+  }
+})();
+
+
+/* ══════════════ SVG BIRDS ══════════════ */
+(function spawnBirds(){
+  const c=document.getElementById('birds');
+  // Simple bird SVG path (two arcs = wings)
+  const birdSVG=`<svg viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 10 Q10 2 0 8" stroke="rgba(180,240,200,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M20 10 Q30 2 40 8" stroke="rgba(180,240,200,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </svg>`;
+  const configs=[
+    {top:'12%',sz:28,dur:28,delay:-5,by:'-2vh'},
+    {top:'22%',sz:18,dur:38,delay:-14,by:'3vh'},
+    {top:'8%', sz:22,dur:44,delay:-22,by:'-4vh'},
+    {top:'18%',sz:14,dur:32,delay:-8, by:'1vh'},
+    {top:'6%', sz:10,dur:50,delay:-30,by:'-1vh'},
+  ];
+  configs.forEach(cfg=>{
+    const d=document.createElement('div');
+    d.className='bird-svg';
+    d.innerHTML=birdSVG;
+    d.style.cssText=`
+      top:${cfg.top};left:0;
+      width:${cfg.sz}px;height:${cfg.sz*0.5}px;
+      --by:${cfg.by};
+      animation-duration:${cfg.dur}s;
+      animation-delay:${cfg.delay}s;
+      opacity:${0.4+Math.random()*.4}`;
+    c.appendChild(d);
+  });
+})();
+
+
+/* ══════════════ LIGHT RAIN ══════════════ */
+(function spawnRain(){
+  const c=document.getElementById('rain');
+  for(let i=0;i<40;i++){
+    const d=document.createElement('div');
+    d.className='drop';
+    const h=60+Math.random()*60;
+    d.style.cssText=`
+      left:${Math.random()*100}%;
+      height:${h}px;
+      animation-duration:${0.6+Math.random()*0.8}s;
+      animation-delay:-${Math.random()*1.5}s;
+      opacity:${0.2+Math.random()*.5}`;
+    c.appendChild(d);
+  }
+})();
+
+
+/* ══════════════ PARALLAX MOUSE ══════════════ */
+(function parallax(){
+  const canopy=document.getElementById('canopy');
+  const treeline=document.getElementById('treeline');
+  document.addEventListener('mousemove',e=>{
+    const cx=e.clientX/window.innerWidth-.5;  // -0.5 … 0.5
+    const cy=e.clientY/window.innerHeight-.5;
+    // Gentle parallax — canopy moves more than treeline
+    canopy.style.transform=`translateX(${cx*-18}px) translateY(${cy*-6}px) rotate(${cx*-0.3}deg)`;
+    treeline.style.transform=`translateX(${cx*-10}px) translateY(${cy*-3}px) rotate(${cx*0.2}deg)`;
+  });
+})();
+
+
+/* ══════════════ CURSOR TRAIL ══════════════ */
+(function cursorTrail(){
+  const canvas=document.getElementById('trail-canvas');
+  const ctx=canvas.getContext('2d');
+  let W=canvas.width=window.innerWidth;
+  let H=canvas.height=window.innerHeight;
+  window.addEventListener('resize',()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight});
+  const particles=[];
+  let mx=W/2,my=H/2;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    // Spawn new trail particle
+    particles.push({x:mx,y:my,r:4,alpha:0.7,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*1.2-0.5,color:`hsl(${130+Math.random()*60},80%,70%)`});
+    if(particles.length>80)particles.shift();
+    particles.forEach((p,i)=>{
+      p.x+=p.vx;p.y+=p.vy;
+      p.r*=.93;p.alpha*=.91;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,Math.max(0,p.r),0,Math.PI*2);
+      ctx.fillStyle=p.color.replace(')',`,${p.alpha})`).replace('hsl','hsla');
+      ctx.shadowBlur=8;ctx.shadowColor=p.color;
+      ctx.fill();
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body></html>
